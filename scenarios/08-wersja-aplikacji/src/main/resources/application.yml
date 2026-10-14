@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: sklep
+sklep:
+  # wersję ustawia obraz dockera (zmienna APP_VERSION), lokalnie: nieznana
+  wersja: ${APP_VERSION:nieznana}

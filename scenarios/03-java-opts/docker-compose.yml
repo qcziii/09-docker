@@ -1,0 +1,8 @@
+name: kurs-docker-03
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      JAVA_OPTS: "-Xmx256m -Dspring.profiles.active=docker"

@@ -1,0 +1,4 @@
+# Końce linii LF także po sklonowaniu na Windows: pliki trafiają do kontenerów Linux i do Git Bash
+* text=auto eol=lf
+*.sh text eol=lf
+*.jar binary

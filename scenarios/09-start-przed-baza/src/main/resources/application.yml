@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: sklep
+  datasource:
+    # lokalnie (IntelliJ): baza z docker compose wystawiona na localhost
+    url: jdbc:postgresql://localhost:5432/sklep
+    username: sklep
+    password: sklep

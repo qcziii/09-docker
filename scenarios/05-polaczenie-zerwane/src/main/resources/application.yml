@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: sklep
+server:
+  port: 8080
+  # Zalecenie z audytu bezpieczeństwa: aplikacja ma nasłuchiwać tylko lokalnie
+  address: 127.0.0.1

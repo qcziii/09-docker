@@ -1,0 +1,13 @@
+name: kurs-docker-15
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    # Limit od administratora klastra: 512 MB na instancję, bez swapa
+    mem_limit: 512m
+    memswap_limit: 512m
+    environment:
+      # Ustawienia JVM skopiowane z serwera produkcyjnego
+      JAVA_OPTS: "-Xms1g -Xmx1g -XX:+AlwaysPreTouch"

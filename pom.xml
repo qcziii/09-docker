@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Agregat: `mvn package -DskipTests` buduje aplikacje wszystkich scenariuszy naraz. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>pl.kurs</groupId>
+    <artifactId>docker-exercises</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>scenarios/01-baza-na-localhost</module>
+        <module>scenarios/02-dockerignore</module>
+        <module>scenarios/03-java-opts</module>
+        <module>scenarios/04-brak-logow</module>
+        <module>scenarios/05-polaczenie-zerwane</module>
+        <module>scenarios/06-plik-env</module>
+        <module>scenarios/07-klucz-api-odrzucony</module>
+        <module>scenarios/08-wersja-aplikacji</module>
+        <module>scenarios/09-start-przed-baza</module>
+        <module>scenarios/10-kontener-unhealthy</module>
+        <module>scenarios/11-dane-znikaja</module>
+        <module>scenarios/12-uprawnienia-user</module>
+        <module>scenarios/13-skrypt-z-windowsa</module>
+        <module>scenarios/14-zatrzymanie-trwa-10s</module>
+        <module>scenarios/15-kontener-znika-137</module>
+        <module>scenarios/16-obraz-za-duzy</module>
+    </modules>
+</project>

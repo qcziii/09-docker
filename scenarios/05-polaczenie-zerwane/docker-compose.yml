@@ -1,0 +1,6 @@
+name: kurs-docker-05
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"

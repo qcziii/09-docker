@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: sklep
+sklep:
+  faktury:
+    # na produkcji pod ten katalog podpinamy wolumen
+    katalog: /app/faktury

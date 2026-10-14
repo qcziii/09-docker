@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: sklep
+sklep:
+  srodowisko: lokalne

@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: sklep
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,env,configprops
+  endpoint:
+    env:
+      show-values: always
+    configprops:
+      show-values: always

@@ -1,0 +1,7 @@
+# Konfiguracja jest w pliku .env obok tego pliku
+name: kurs-docker-06
+services:
+  app:
+    build: .
+    ports:
+      - "${SKLEP_PORT}:8080"

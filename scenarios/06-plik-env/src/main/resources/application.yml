@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: sklep
+sklep:
+  waluta: PLN
+  rabat: 0

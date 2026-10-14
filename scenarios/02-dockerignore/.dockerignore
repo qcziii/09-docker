@@ -1,0 +1,7 @@
+# Nie wysyłaj do budowania niepotrzebnych plików (szybszy docker build)
+.git
+.idea
+*.iml
+*.log
+src/test
+target
