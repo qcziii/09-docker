@@ -2,6 +2,7 @@
 ARG APP_VERSION=dev
 
 FROM eclipse-temurin:21-jre-alpine
+ARG APP_VERSION=dev
 ENV APP_VERSION=${APP_VERSION}
 WORKDIR /app
 COPY target/sklep.jar app.jar
