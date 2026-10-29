@@ -8,10 +8,10 @@ services:
       POSTGRES_USER: sklep
       POSTGRES_PASSWORD: sklep
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
 
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -h localhost -U sklep -d sklep"]
+      test: [ "CMD-SHELL", "pg_isready -h localhost -U sklep -d sklep" ]
       interval: 2s
       timeout: 3s
       retries: 30
