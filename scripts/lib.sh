@@ -4,6 +4,9 @@
 
 # Git Bash na Windows: nie zamieniaj argumentów zaczynających się od / na ścieżki Windows
 export MSYS_NO_PATHCONV=1
+curl() {
+  env -u MSYS_NO_PATHCONV curl "$@"
+}
 APP=${APP:-http://localhost:8080}
 LIB_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 SCEN_DIR=$(cd "$(dirname "$0")" && pwd)
@@ -46,7 +49,7 @@ stop_other_scenarios() {
 # Buduje jar aplikacji na hoście (target/sklep.jar), tak jak opisuje ZADANIE.md.
 build_jar() {
   info "mvn package (budowanie target/sklep.jar)"
-  if ! mvn -q -B package -DskipTests > "$OUT_FILE" 2>&1; then
+    if ! env -u MSYS_NO_PATHCONV mvn -q -B package -DskipTests > "$OUT_FILE" 2>&1; then
     bad "mvn package nie powiódł się:"
     tail -n 20 "$OUT_FILE" | indent
     summary

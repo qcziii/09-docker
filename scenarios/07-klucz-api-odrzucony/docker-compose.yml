@@ -5,6 +5,5 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SKLEP_BRAMKA_URL=https://sandbox.bramka-platnosci.example
-      # klucz testowy z panelu bramki (sandbox)
-      - SKLEP_BRAMKA_APIKEY="sk_test_kurs_12345"
+      SKLEP_BRAMKA_URL: "https://sandbox.bramka-platnosci.example"
+      SKLEP_BRAMKA_APIKEY: "sk_test_kurs_12345"
