@@ -6,7 +6,7 @@ Poziom: **średni**
 
 ```bash
 cd scenarios/13-skrypt-z-windowsa
-mvn -q package -DskipTests          # buduje target/sklep.jar
+mvn -q package -DskipTests          # buduje target/shop.jar
 docker compose up --build -d
 docker compose ps -a
 docker compose logs app

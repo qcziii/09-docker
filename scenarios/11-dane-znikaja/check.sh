@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Scenariusz 11-dane-znikaja: Po docker compose down znikają wszystkie zamówienia
-# Uruchom: ./scenarios/11-dane-znikaja/check.sh (z dowolnego katalogu). Skrypt sam buduje i uruchamia scenariusz od zera
-# (docker compose down -v, potem up --build), więc kasuje dane z poprzedniego uruchomienia.
+# Check for scenario 11-dane-znikaja (the description is printed below)
+# Run: ./scenarios/11-dane-znikaja/check.sh (from any directory). The script builds and starts the scenario from scratch
+# (docker compose down -v, then up --build), so it deletes data from the previous run.
 source "$(dirname "$0")/../../scripts/lib.sh"
 echo "Scenariusz 11-dane-znikaja: Po docker compose down znikają wszystkie zamówienia"
 require_docker
@@ -10,7 +10,7 @@ build_jar
 compose_up
 wait_app 90
 MARKER="Zamowienie-$(date +%s)"
-expect_status "Złożenie zamówienia" 201 -X POST "$APP/api/orders" -H 'Content-Type: application/json' -d "{\"produkt\":\"$MARKER\",\"ilosc\":1}"
+expect_status "Złożenie zamówienia" 201 -X POST "$APP/api/orders" -H 'Content-Type: application/json' -d "{\"product\":\"$MARKER\",\"quantity\":1}"
 info "docker compose down (bez -v), potem docker compose up -d"
 docker compose down > /dev/null 2>&1
 if ! docker compose up -d > "$OUT_FILE" 2>&1; then

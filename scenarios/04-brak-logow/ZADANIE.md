@@ -6,7 +6,7 @@ Poziom: **łatwy**
 
 ```bash
 cd scenarios/04-brak-logow
-mvn -q package -DskipTests          # buduje target/sklep.jar
+mvn -q package -DskipTests          # buduje target/shop.jar
 docker compose up --build -d
 docker compose ps -a
 docker compose logs app
@@ -24,7 +24,7 @@ curl -i http://localhost:8080/api/orders/999
 docker compose logs app
 ```
 
-**Oczekiwane:** `docker compose logs app` pokazuje logi aplikacji, w tym start (`Started SklepApplication`) i ostrzeżenie o nieistniejącym zamówieniu. Zapis do pliku może zostać.
+**Oczekiwane:** `docker compose logs app` pokazuje logi aplikacji, w tym start (`Started ShopApplication`) i ostrzeżenie o nieistniejącym zamówieniu. Zapis do pliku może zostać.
 
 **Pytanie dodatkowe:** gdzie są teraz logi aplikacji i co się z nimi stanie po `docker compose down`? Jak je odczytać bez zmiany konfiguracji?
 

@@ -1,2 +1,2 @@
-# docker-entrypoint.sh edytowany na Windowsie
+# docker-entrypoint.sh edited on Windows
 docker-entrypoint.sh -text

@@ -1,8 +1,8 @@
 spring:
   application:
-    name: sklep
+    name: shop
   datasource:
-    # lokalnie (IntelliJ): baza z docker compose wystawiona na localhost
-    url: jdbc:postgresql://localhost:5432/sklep
-    username: sklep
-    password: sklep
+    # locally (IntelliJ): the database from docker compose published on localhost
+    url: jdbc:postgresql://localhost:5432/shop
+    username: shop
+    password: shop

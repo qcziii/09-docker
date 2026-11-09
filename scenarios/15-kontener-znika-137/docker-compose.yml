@@ -5,9 +5,9 @@ services:
     ports:
       - "8080:8080"
     restart: unless-stopped
-    # Limit od administratora klastra: 512 MB na instancję, bez swapa
+    # Limit from the cluster administrator: 512 MB per instance, no swap
     mem_limit: 512m
     memswap_limit: 512m
     environment:
-      # Ustawienia JVM skopiowane z serwera produkcyjnego
+      # JVM settings copied from the production server
       JAVA_OPTS: "-Xms1g -Xmx1g -XX:+AlwaysPreTouch"

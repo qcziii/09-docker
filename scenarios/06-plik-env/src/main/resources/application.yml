@@ -1,6 +1,6 @@
 spring:
   application:
-    name: sklep
-sklep:
-  waluta: PLN
-  rabat: 0
+    name: shop
+shop:
+  currency: PLN
+  discount: 0

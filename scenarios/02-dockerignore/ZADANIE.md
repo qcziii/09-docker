@@ -6,7 +6,7 @@ Poziom: **łatwy**
 
 ```bash
 cd scenarios/02-dockerignore
-mvn -q package -DskipTests          # buduje target/sklep.jar
+mvn -q package -DskipTests          # buduje target/shop.jar
 docker compose up --build -d
 docker compose ps -a
 docker compose logs app
@@ -17,11 +17,11 @@ docker compose logs app
 
 ## Zgłoszenie
 
-Budowanie obrazu trwało długo, bo docker wysyłał do budowania cały katalog. Kolega poradził dodać `.dockerignore`. Teraz `docker compose up --build` kończy się błędem, choć plik `target/sklep.jar` na pewno istnieje (`ls target`).
+Budowanie obrazu trwało długo, bo docker wysyłał do budowania cały katalog. Kolega poradził dodać `.dockerignore`. Teraz `docker compose up --build` kończy się błędem, choć plik `target/shop.jar` na pewno istnieje (`ls target`).
 
 ```bash
 mvn -q package -DskipTests
-ls -l target/sklep.jar
+ls -l target/shop.jar
 docker compose build
 ```
 

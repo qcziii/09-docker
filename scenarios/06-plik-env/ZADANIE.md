@@ -6,7 +6,7 @@ Poziom: **średni**
 
 ```bash
 cd scenarios/06-plik-env
-mvn -q package -DskipTests          # buduje target/sklep.jar
+mvn -q package -DskipTests          # buduje target/shop.jar
 docker compose up --build -d
 docker compose ps -a
 docker compose logs app
@@ -24,7 +24,7 @@ curl http://localhost:8080/api/info
 curl http://localhost:8080/api/products/1
 ```
 
-**Oczekiwane:** `/api/info` zwraca `"waluta":"EUR"` i `"rabat":10`. Wartości mają dalej pochodzić z pliku `.env`.
+**Oczekiwane:** `/api/info` zwraca `"currency":"EUR"` i `"discount":10`. Wartości mają dalej pochodzić z pliku `.env`.
 
 **Pytanie dodatkowe:** jakim poleceniem zobaczysz `docker-compose.yml` po podstawieniu wszystkich zmiennych? A jakim zmienne środowiskowe, które naprawdę ma proces w kontenerze?
 

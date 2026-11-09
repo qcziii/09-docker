@@ -1,2 +1,2 @@
-sklep:
-  srodowisko: docker
+shop:
+  environment: docker

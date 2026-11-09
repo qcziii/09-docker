@@ -1,5 +1,5 @@
 spring:
   application:
-    name: sklep
-sklep:
-  srodowisko: lokalne
+    name: shop
+shop:
+  environment: local

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Scenariusz 09-start-przed-baza: Za pierwszym razem aplikacja pada, za drugim działa
-# Uruchom: ./scenarios/09-start-przed-baza/check.sh (z dowolnego katalogu). Skrypt sam buduje i uruchamia scenariusz od zera
-# (docker compose down -v, potem up --build), więc kasuje dane z poprzedniego uruchomienia.
+# Check for scenario 09-start-przed-baza (the description is printed below)
+# Run: ./scenarios/09-start-przed-baza/check.sh (from any directory). The script builds and starts the scenario from scratch
+# (docker compose down -v, then up --build), so it deletes data from the previous run.
 source "$(dirname "$0")/../../scripts/lib.sh"
 echo "Scenariusz 09-start-przed-baza: Za pierwszym razem aplikacja pada, za drugim działa"
 require_docker
@@ -10,5 +10,5 @@ build_jar
 compose_up
 wait_app 150
 expect_eq "Aplikacja wystartowała za pierwszym razem (restartów: 0)" "$(insp app '{{.RestartCount}}')" "0"
-expect_body "Produkty z katalogu" '"nazwa":"Klawiatura mechaniczna"' "$APP/api/products"
+expect_body "Produkty z katalogu" '"name":"Klawiatura mechaniczna"' "$APP/api/products"
 summary

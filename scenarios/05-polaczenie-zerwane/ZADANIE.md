@@ -6,7 +6,7 @@ Poziom: **średni**
 
 ```bash
 cd scenarios/05-polaczenie-zerwane
-mvn -q package -DskipTests          # buduje target/sklep.jar
+mvn -q package -DskipTests          # buduje target/shop.jar
 docker compose up --build -d
 docker compose ps -a
 docker compose logs app
@@ -17,7 +17,7 @@ docker compose logs app
 
 ## Zgłoszenie
 
-Kontener jest `Up`, w logach `Tomcat started on port 8080` i `Started SklepApplication`, `docker compose ps` pokazuje `0.0.0.0:8080->8080/tcp`. Mimo to z komputera nie da się połączyć:
+Kontener jest `Up`, w logach `Tomcat started on port 8080` i `Started ShopApplication`, `docker compose ps` pokazuje `0.0.0.0:8080->8080/tcp`. Mimo to z komputera nie da się połączyć:
 
 ```bash
 curl -v http://localhost:8080/api/info

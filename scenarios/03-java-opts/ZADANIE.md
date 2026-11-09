@@ -6,7 +6,7 @@ Poziom: **łatwy**
 
 ```bash
 cd scenarios/03-java-opts
-mvn -q package -DskipTests          # buduje target/sklep.jar
+mvn -q package -DskipTests          # buduje target/shop.jar
 docker compose up --build -d
 docker compose ps -a
 docker compose logs app
@@ -24,7 +24,7 @@ docker compose ps -a
 docker compose logs app
 ```
 
-**Oczekiwane:** aplikacja działa z profilem `docker` i stertą ograniczoną do 256 MB. `curl http://localhost:8080/api/info` pokazuje `"srodowisko":"docker"` i `maxHeapMb` nie większe niż 256.
+**Oczekiwane:** aplikacja działa z profilem `docker` i stertą ograniczoną do 256 MB. `curl http://localhost:8080/api/info` pokazuje `"environment":"docker"` i `maxHeapMb` nie większe niż 256.
 
 **Pytanie dodatkowe:** czym różni się `ENTRYPOINT ["java", "-jar", "app.jar"]` od `ENTRYPOINT java -jar app.jar`? Który proces ma w kontenerze PID 1 w każdym z tych przypadków?
 

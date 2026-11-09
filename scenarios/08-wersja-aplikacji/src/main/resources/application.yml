@@ -1,6 +1,6 @@
 spring:
   application:
-    name: sklep
-sklep:
-  # wersję ustawia obraz dockera (zmienna APP_VERSION), lokalnie: nieznana
-  wersja: ${APP_VERSION:nieznana}
+    name: shop
+shop:
+  # the version is set by the docker image (APP_VERSION variable), locally: unknown
+  version: ${APP_VERSION:unknown}

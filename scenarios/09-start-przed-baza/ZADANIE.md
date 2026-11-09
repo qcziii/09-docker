@@ -6,7 +6,7 @@ Poziom: **trudny**
 
 ```bash
 cd scenarios/09-start-przed-baza
-mvn -q package -DskipTests          # buduje target/sklep.jar
+mvn -q package -DskipTests          # buduje target/shop.jar
 docker compose up --build -d
 docker compose ps -a
 docker compose logs app

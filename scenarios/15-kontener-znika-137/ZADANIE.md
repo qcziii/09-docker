@@ -6,7 +6,7 @@ Poziom: **trudny**
 
 ```bash
 cd scenarios/15-kontener-znika-137
-mvn -q package -DskipTests          # buduje target/sklep.jar
+mvn -q package -DskipTests          # buduje target/shop.jar
 docker compose up --build -d
 docker compose ps -a
 docker compose logs app
@@ -25,7 +25,7 @@ docker compose ps -a
 docker compose logs app
 ```
 
-**Oczekiwane:** aplikacja działa w limicie 512 MB (limitu nie wolno zwiększać ani usuwać), nie restartuje się, a raport sprzedaży (`curl http://localhost:8080/api/raport`) działa. `/api/info` pokazuje rozmiar sterty (`maxHeapMb`): ma się mieścić w limicie z zapasem, czyli najwyżej 400 MB.
+**Oczekiwane:** aplikacja działa w limicie 512 MB (limitu nie wolno zwiększać ani usuwać), nie restartuje się, a raport sprzedaży (`curl http://localhost:8080/api/report`) działa. `/api/info` pokazuje rozmiar sterty (`maxHeapMb`): ma się mieścić w limicie z zapasem, czyli najwyżej 400 MB.
 
 **Pytanie dodatkowe:** dlaczego w logach aplikacji nie ma żadnego `OutOfMemoryError`? Ile pamięci dostałaby sterta, gdyby w `JAVA_OPTS` nie było żadnych ustawień pamięci?
 

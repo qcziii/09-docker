@@ -1,4 +1,4 @@
-# nginx (port 8080 na hoście) -> aplikacja. nginx startuje dopiero, gdy aplikacja jest zdrowa.
+# nginx (port 8080 on the host) -> application. nginx starts only when the application is healthy.
 name: kurs-docker-10
 services:
   app:

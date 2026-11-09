@@ -6,7 +6,7 @@ Poziom: **średni**
 
 ```bash
 cd scenarios/10-kontener-unhealthy
-mvn -q package -DskipTests          # buduje target/sklep.jar
+mvn -q package -DskipTests          # buduje target/shop.jar
 docker compose up --build -d
 docker compose ps -a
 docker compose logs app
@@ -23,7 +23,7 @@ Dodaliśmy nginx przed aplikację (docelowo będzie terminował TLS). Żeby ngin
 dependency failed to start: container kurs-docker-10-app-1 is unhealthy
 ```
 
-A przecież aplikacja działa: w logach jest `Started SklepApplication`, a `docker compose exec app wget -qO- localhost:8080/actuator/health` zwraca `{"status":"UP"}`.
+A przecież aplikacja działa: w logach jest `Started ShopApplication`, a `docker compose exec app wget -qO- localhost:8080/actuator/health` zwraca `{"status":"UP"}`.
 
 **Oczekiwane:** `docker compose up --build -d` kończy się bez błędu, aplikacja ma status `healthy`, a `curl -i http://localhost:8080/api/info` odpowiada przez nginx (nagłówek `Server: nginx`).
 

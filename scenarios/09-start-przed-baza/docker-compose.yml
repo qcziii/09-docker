@@ -1,12 +1,12 @@
-# Sklep + PostgreSQL. Skrypty z katalogu db/ wykonują się przy pierwszym starcie bazy.
+# Shop + PostgreSQL. Scripts from the db/ directory run on the first database start.
 name: kurs-docker-09
 services:
   db:
     image: postgres:17-alpine
     environment:
-      POSTGRES_DB: sklep
-      POSTGRES_USER: sklep
-      POSTGRES_PASSWORD: sklep
+      POSTGRES_DB: shop
+      POSTGRES_USER: shop
+      POSTGRES_PASSWORD: shop
     volumes:
       - ./db:/docker-entrypoint-initdb.d:ro
 
@@ -15,6 +15,6 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/sklep
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/shop
     depends_on:
       - db

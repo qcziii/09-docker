@@ -1,5 +1,5 @@
-CREATE TABLE IF NOT EXISTS produkty (
+CREATE TABLE IF NOT EXISTS products (
     id    INT PRIMARY KEY,
-    nazwa VARCHAR(100) NOT NULL,
-    cena  NUMERIC(10, 2) NOT NULL
+    name  VARCHAR(100) NOT NULL,
+    price NUMERIC(10, 2) NOT NULL
 );

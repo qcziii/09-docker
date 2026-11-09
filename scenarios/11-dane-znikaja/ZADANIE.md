@@ -6,7 +6,7 @@ Poziom: **średni**
 
 ```bash
 cd scenarios/11-dane-znikaja
-mvn -q package -DskipTests          # buduje target/sklep.jar
+mvn -q package -DskipTests          # buduje target/shop.jar
 docker compose up --build -d
 docker compose ps -a
 docker compose logs app
@@ -17,10 +17,10 @@ docker compose logs app
 
 ## Zgłoszenie
 
-Dane bazy mają przetrwać restart, więc w compose jest wolumen `dane`. `docker compose restart` faktycznie nic nie psuje, ale po `docker compose down` i ponownym `up -d` wszystkie zamówienia znikają. Nie używamy `down -v`. Wolumen `kurs-docker-11_dane` istnieje (`docker volume ls`).
+Dane bazy mają przetrwać restart, więc w compose jest wolumen `data`. `docker compose restart` faktycznie nic nie psuje, ale po `docker compose down` i ponownym `up -d` wszystkie zamówienia znikają. Nie używamy `down -v`. Wolumen `kurs-docker-11_dane` istnieje (`docker volume ls`).
 
 ```bash
-curl -X POST http://localhost:8080/api/orders -H 'Content-Type: application/json' -d '{"produkt":"Klawiatura","ilosc":1}'
+curl -X POST http://localhost:8080/api/orders -H 'Content-Type: application/json' -d '{"product":"Klawiatura","quantity":1}'
 curl http://localhost:8080/api/orders
 docker compose down
 docker compose up -d

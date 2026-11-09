@@ -1,16 +1,16 @@
-# Sklep + PostgreSQL. Dane bazy trzymamy w wolumenie "dane", żeby przetrwały restart.
+# Shop + PostgreSQL. Database data is kept in the "data" volume so it survives a restart.
 name: kurs-docker-11
 services:
   db:
     image: postgres:17-alpine
     environment:
-      POSTGRES_DB: sklep
-      POSTGRES_USER: sklep
-      POSTGRES_PASSWORD: sklep
+      POSTGRES_DB: shop
+      POSTGRES_USER: shop
+      POSTGRES_PASSWORD: shop
     volumes:
-      - dane:/var/lib/postgres/data
+      - data:/var/lib/postgres/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -h localhost -U sklep -d sklep"]
+      test: ["CMD-SHELL", "pg_isready -h localhost -U shop -d shop"]
       interval: 2s
       timeout: 3s
       retries: 30
@@ -20,10 +20,10 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/sklep
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/shop
     depends_on:
       db:
         condition: service_healthy
 
 volumes:
-  dane:
+  data:

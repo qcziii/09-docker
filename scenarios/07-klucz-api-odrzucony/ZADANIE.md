@@ -6,7 +6,7 @@ Poziom: **średni**
 
 ```bash
 cd scenarios/07-klucz-api-odrzucony
-mvn -q package -DskipTests          # buduje target/sklep.jar
+mvn -q package -DskipTests          # buduje target/shop.jar
 docker compose up --build -d
 docker compose ps -a
 docker compose logs app
@@ -20,7 +20,7 @@ docker compose logs app
 Podpinamy bramkę płatności (na razie sandbox). Klucz testowy skopiowałem z panelu bramki do `docker-compose.yml`, sprawdziłem trzy razy, że jest identyczny. Mimo to każda płatność kończy się błędem 502, a w logach bramka odrzuca klucz.
 
 ```bash
-curl -i -X POST "http://localhost:8080/api/platnosci?zamowienie=1"
+curl -i -X POST "http://localhost:8080/api/payments?orderId=1"
 docker compose logs app
 ```
 

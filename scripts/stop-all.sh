@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Zatrzymuje i usuwa kontenery, sieci i wolumeny wszystkich scenariuszy (projekty compose kurs-docker-*).
+# Stops and removes containers, networks and volumes of all scenarios (compose projects kurs-docker-*).
 export MSYS_NO_PATHCONV=1
 projects=$(docker ps -a --format '{{.Label "com.docker.compose.project"}}' | sort -u | grep '^kurs-docker-')
 if [ -z "$projects" ]; then

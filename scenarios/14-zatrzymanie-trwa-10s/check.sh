@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Scenariusz 14-zatrzymanie-trwa-10s: Zatrzymanie kontenera trwa 10 sekund, a zamówienia z kolejki giną
-# Uruchom: ./scenarios/14-zatrzymanie-trwa-10s/check.sh (z dowolnego katalogu). Skrypt sam buduje i uruchamia scenariusz od zera
-# (docker compose down -v, potem up --build), więc kasuje dane z poprzedniego uruchomienia.
+# Check for scenario 14-zatrzymanie-trwa-10s (the description is printed below)
+# Run: ./scenarios/14-zatrzymanie-trwa-10s/check.sh (from any directory). The script builds and starts the scenario from scratch
+# (docker compose down -v, then up --build), so it deletes data from the previous run.
 source "$(dirname "$0")/../../scripts/lib.sh"
 echo "Scenariusz 14-zatrzymanie-trwa-10s: Zatrzymanie kontenera trwa 10 sekund, a zamówienia z kolejki giną"
 require_docker
@@ -9,8 +9,8 @@ stop_other_scenarios
 build_jar
 compose_up
 wait_app 90
-expect_status "Zamówienie trafia do kolejki" 202 -X POST "$APP/api/orders?produkt=Klawiatura"
-expect_status "Drugie zamówienie trafia do kolejki" 202 -X POST "$APP/api/orders?produkt=Mysz"
+expect_status "Zamówienie trafia do kolejki" 202 -X POST "$APP/api/orders?product=Klawiatura"
+expect_status "Drugie zamówienie trafia do kolejki" 202 -X POST "$APP/api/orders?product=Mysz"
 info "docker compose stop app (mierzę czas)"
 start=$(date +%s)
 docker compose stop app > /dev/null 2>&1

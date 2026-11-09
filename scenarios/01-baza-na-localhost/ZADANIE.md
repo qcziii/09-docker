@@ -6,7 +6,7 @@ Poziom: **łatwy**
 
 ```bash
 cd scenarios/01-baza-na-localhost
-mvn -q package -DskipTests          # buduje target/sklep.jar
+mvn -q package -DskipTests          # buduje target/shop.jar
 docker compose up --build -d
 docker compose ps -a
 docker compose logs app

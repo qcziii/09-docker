@@ -1,8 +1,8 @@
 FROM eclipse-temurin:21-jre-alpine
-# Wymaganie bezpieczeństwa: aplikacja nie może działać jako root
-RUN addgroup -S sklep && adduser -S -G sklep sklep
+# Security requirement: the application must not run as root
+RUN addgroup -S shop && adduser -S -G shop shop
 WORKDIR /app
-COPY target/sklep.jar app.jar
-USER sklep
+COPY target/shop.jar app.jar
+USER shop
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]

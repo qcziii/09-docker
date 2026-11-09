@@ -17,7 +17,7 @@ Stos: Spring Boot 4.0, Java 21, obrazy `eclipse-temurin` (alpine), PostgreSQL 17
 ## Architektura
 
 ```
-klient (curl) ──> localhost:8080 ──> [kontener app: sklep] ──> [kontener db: PostgreSQL]  (część scenariuszy)
+klient (curl) ──> localhost:8080 ──> [kontener app: shop] ──> [kontener db: PostgreSQL]  (część scenariuszy)
                                       (w scenariuszu 10 przed aplikacją stoi nginx)
 ```
 
@@ -27,7 +27,7 @@ Każdy scenariusz to osobny projekt compose (`kurs-docker-NN`) z własną aplika
 
 ```bash
 cd scenarios/01-baza-na-localhost
-mvn -q package -DskipTests        # buduje target/sklep.jar (scenariusz 16 buduje w dockerze)
+mvn -q package -DskipTests        # buduje target/shop.jar (scenariusz 16 buduje w dockerze)
 docker compose up --build -d
 docker compose ps -a              # stan kontenerów, kody wyjścia
 docker compose logs app           # logi aplikacji

@@ -1,4 +1,4 @@
-# Nie wysyłaj do budowania niepotrzebnych plików (szybszy docker build)
+# Do not send unneeded files to the build (faster docker build)
 .git
 .idea
 *.iml

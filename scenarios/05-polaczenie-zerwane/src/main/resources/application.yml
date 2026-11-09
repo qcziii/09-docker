@@ -1,7 +1,7 @@
 spring:
   application:
-    name: sklep
+    name: shop
 server:
   port: 8080
-  # Zalecenie z audytu bezpieczeństwa: aplikacja ma nasłuchiwać tylko lokalnie
+  # Security audit recommendation: the application must listen only locally
   address: 127.0.0.1

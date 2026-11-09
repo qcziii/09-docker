@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Wspólne funkcje dla skryptów check.sh w scenariuszach.
-# Wymagają bash, curl, mvn i dockera z Compose v2 (na Windows: Git Bash + Docker Desktop).
+# Shared functions for the check.sh scripts in the scenarios.
+# They need bash, curl, mvn and docker with Compose v2 (on Windows: Git Bash + Docker Desktop).
 
-# Git Bash na Windows: nie zamieniaj argumentów zaczynających się od / na ścieżki Windows
+# Git Bash on Windows: do not turn arguments starting with / into Windows paths
 export MSYS_NO_PATHCONV=1
 APP=${APP:-http://localhost:8080}
 LIB_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
@@ -15,7 +15,7 @@ BODY_FILE=$(mktemp)
 OUT_FILE=$(mktemp)
 trap 'rm -f "$BODY_FILE" "$OUT_FILE"' EXIT
 
-# Wszystkie polecenia docker compose działają w katalogu scenariusza
+# All docker compose commands run in the scenario directory
 cd "$SCEN_DIR" || exit 1
 
 ok()  { echo "  [OK]   $1"; PASS=$((PASS+1)); }
@@ -30,7 +30,7 @@ require_docker() {
   fi
 }
 
-# Kontenery innych scenariuszy zajmują port 8080, więc je zatrzymujemy.
+# Containers of other scenarios take port 8080, so we stop them.
 stop_other_scenarios() {
   local p ids
   for p in $(docker ps --format '{{.Label "com.docker.compose.project"}}' | sort -u | grep '^kurs-docker-'); do
@@ -43,9 +43,9 @@ stop_other_scenarios() {
   done
 }
 
-# Buduje jar aplikacji na hoście (target/sklep.jar), tak jak opisuje ZADANIE.md.
+# Builds the application jar on the host (target/shop.jar), as described in ZADANIE.md.
 build_jar() {
-  info "mvn package (budowanie target/sklep.jar)"
+  info "mvn package (budowanie target/shop.jar)"
   if ! mvn -q -B package -DskipTests > "$OUT_FILE" 2>&1; then
     bad "mvn package nie powiódł się:"
     tail -n 20 "$OUT_FILE" | indent
@@ -53,7 +53,7 @@ build_jar() {
   fi
 }
 
-# Uruchamia scenariusz od zera: down -v (kasuje też wolumeny), potem up --build.
+# Starts the scenario from scratch: down -v (also deletes volumes), then up --build.
 compose_up() {
   info "docker compose down -v, potem docker compose up --build -d"
   docker compose down -v --remove-orphans > /dev/null 2>&1
@@ -66,14 +66,14 @@ compose_up() {
   fi
 }
 
-# Id kontenera serwisu (także zatrzymanego).
+# Container id of the service (also a stopped one).
 cid() { docker compose ps -a -q "$1" 2>/dev/null | head -n 1; }
 
-# docker inspect z formatem dla kontenera serwisu: insp app '{{.State.ExitCode}}'
+# docker inspect with a format for the service container: insp app '{{.State.ExitCode}}'
 insp() { local id; id=$(cid "$1"); [ -n "$id" ] && docker inspect -f "$2" "$id" 2>/dev/null | tr -d '\r'; }
 
-# Czeka, aż aplikacja odpowie pod $APP (albo przynajmniej wypisze "Started" w logach).
-# Przerywa od razu, gdy kontener się zakończył lub restartuje.
+# Waits until the application answers at $APP (or at least prints "Started" in the logs).
+# Stops right away when the container has exited or is restarting.
 wait_app() {
   local timeout=${1:-90} svc=${2:-app} i code state restarts started="" answered=""
   info "czekam na aplikację (max $timeout s)"
@@ -89,15 +89,15 @@ wait_app() {
       log_hint "$svc"
       summary
     fi
-    # Aplikacja odpowiada: jeszcze 3 s obserwacji, czy nie padnie tuż po starcie.
+    # The application answers: watch it for 3 more seconds in case it dies right after startup.
     code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 2 "$APP/actuator/health")
     if [ "$code" != "000" ] && [ "$code" != "502" ]; then
       [ -z "$answered" ] && answered=$i
       (( i - answered >= 3 )) && return 0
     fi
-    # Spring wypisał "Started", a aplikacja nie odpowiada: dajemy jej jeszcze 15 s
-    # (na błąd tuż po starcie albo na to, że po prostu jest nieosiągalna).
-    if [ -z "$started" ] && (( i % 3 == 2 )) && docker compose logs "$svc" 2>/dev/null | grep -q "Started SklepApplication"; then
+    # Spring printed "Started" but the application does not answer: give it 15 more seconds
+    # (for an error right after startup, or because it is simply unreachable).
+    if [ -z "$started" ] && (( i % 3 == 2 )) && docker compose logs "$svc" 2>/dev/null | grep -q "Started ShopApplication"; then
       started=$i
     fi
     if [ -n "$started" ] && (( i - started >= 15 )); then return 0; fi
@@ -107,7 +107,7 @@ wait_app() {
   summary
 }
 
-# Najważniejsze linie z logów serwisu: przyczyny błędów, a gdy ich brak, ostatnie linie.
+# The most important lines from the service logs: error causes, or the last lines if there are none.
 log_hint() {
   local lines
   lines=$(docker compose logs --no-log-prefix "$1" 2>&1 | grep -E '^Caused by|^Error|^Exception|ERROR|^[a-zA-Z.]+(Exception|Error):' | tail -n 6)
@@ -117,7 +117,7 @@ log_hint() {
   echo "         Całość: docker compose logs $1 (w katalogu scenariusza)"
 }
 
-# Wykonuje żądanie; ustawia CODE, BODY i HEADERS. Argumenty jak dla curl.
+# Sends a request; sets CODE, BODY and HEADERS. Arguments as for curl.
 call() {
   local hdr
   hdr=$(mktemp)
@@ -128,14 +128,14 @@ call() {
   rm -f "$hdr"
 }
 
-# expect_status "opis" 200 <argumenty curl>
+# expect_status "description" 200 <curl arguments>
 expect_status() {
   local desc=$1 expected=$2; shift 2
   call "$@"
   if [ "$CODE" = "$expected" ]; then ok "$desc (HTTP $CODE)"; else bad "$desc: oczekiwano HTTP $expected, jest HTTP $CODE. Body: ${BODY:0:300}"; fi
 }
 
-# expect_body "opis" 'fragment' <argumenty curl>  (sprawdza też, że HTTP 2xx)
+# expect_body "description" 'fragment' <curl arguments>  (also checks for HTTP 2xx)
 expect_body() {
   local desc=$1 fragment=$2; shift 2
   call "$@"
@@ -146,12 +146,12 @@ expect_body() {
   fi
 }
 
-# expect_eq "opis" "wartość" "oczekiwana"
+# expect_eq "description" "value" "expected"
 expect_eq() {
   if [ "$2" = "$3" ]; then ok "$1"; else bad "$1: jest '${2:0:200}', oczekiwano '$3'"; fi
 }
 
-# expect_logs "opis" serwis 'fragment'
+# expect_logs "description" service 'fragment'
 expect_logs() {
   if docker compose logs --no-log-prefix "$2" 2>/dev/null | grep -qF -- "$3"; then
     ok "$1"
@@ -160,7 +160,7 @@ expect_logs() {
   fi
 }
 
-# Wartość pola liczbowego z JSON-a, np. json_num maxHeapMb
+# Value of a numeric JSON field, e.g. json_num maxHeapMb
 json_num() { echo "$BODY" | grep -o "\"$1\":[0-9]*" | head -n 1 | cut -d: -f2; }
 
 summary() {

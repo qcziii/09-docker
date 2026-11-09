@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <!-- Logi zapisujemy do pliku z rotacją, żeby nie ginęły i nie zapychały dysku -->
+    <!-- Logs go to a rotated file so they are not lost and do not fill up the disk -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/sklep.log</file>
+        <file>logs/shop.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>logs/sklep.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>logs/shop.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxFileSize>10MB</maxFileSize>
             <maxHistory>7</maxHistory>
             <totalSizeCap>100MB</totalSizeCap>

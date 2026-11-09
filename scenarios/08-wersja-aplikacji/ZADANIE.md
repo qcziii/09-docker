@@ -6,7 +6,7 @@ Poziom: **średni**
 
 ```bash
 cd scenarios/08-wersja-aplikacji
-mvn -q package -DskipTests          # buduje target/sklep.jar
+mvn -q package -DskipTests          # buduje target/shop.jar
 docker compose up --build -d
 docker compose ps -a
 docker compose logs app
@@ -17,14 +17,14 @@ docker compose logs app
 
 ## Zgłoszenie
 
-Monitoring odpytuje `/api/info` i pokazuje wersję każdej instancji. Wersję przekazujemy przy budowaniu obrazu (`build.args` w `docker-compose.yml`), a Dockerfile przepisuje ją do zmiennej środowiskowej. Lokalnie z IntelliJ aplikacja pokazuje `nieznana`, co jest OK. Ale z dockera wersja jest... pusta.
+Monitoring odpytuje `/api/info` i pokazuje wersję każdej instancji. Wersję przekazujemy przy budowaniu obrazu (`build.args` w `docker-compose.yml`), a Dockerfile przepisuje ją do zmiennej środowiskowej. Lokalnie z IntelliJ aplikacja pokazuje `unknown`, co jest OK. Ale z dockera wersja jest... pusta.
 
 ```bash
 curl http://localhost:8080/api/info
-# {"aplikacja":"sklep","wersja":""}
+# {"application":"shop","version":""}
 ```
 
-**Oczekiwane:** `/api/info` zwraca `"wersja":"2.3.1"`, a wersja dalej pochodzi z `docker-compose.yml`.
+**Oczekiwane:** `/api/info` zwraca `"version":"2.3.1"`, a wersja dalej pochodzi z `docker-compose.yml`.
 
 **Pytanie dodatkowe:** czym różni się `ARG` od `ENV`? Która z tych wartości jest dostępna w działającym kontenerze, a która tylko podczas budowania?
 

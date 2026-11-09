@@ -6,7 +6,7 @@ Poziom: **trudny**
 
 ```bash
 cd scenarios/14-zatrzymanie-trwa-10s
-mvn -q package -DskipTests          # buduje target/sklep.jar
+mvn -q package -DskipTests          # buduje target/shop.jar
 docker compose up --build -d
 docker compose ps -a
 docker compose logs app
@@ -20,7 +20,7 @@ docker compose logs app
 Przy każdym wdrożeniu (`docker compose up -d` z nowym obrazem) giną zamówienia, które czekały w kolejce w pamięci. Aplikacja ma przecież `@PreDestroy`, który zapisuje kolejkę przy zamykaniu, i lokalnie (Ctrl+C w IntelliJ) to działa: w logu jest `Zamykanie: zapisano zamówienia z kolejki`. W dockerze tego wpisu nie ma nigdy. Zauważyliśmy też, że zatrzymanie kontenera trwa zawsze równo 10 sekund.
 
 ```bash
-curl -X POST "http://localhost:8080/api/orders?produkt=Klawiatura"
+curl -X POST "http://localhost:8080/api/orders?product=Klawiatura"
 time docker compose stop app
 docker compose ps -a
 docker compose logs app
