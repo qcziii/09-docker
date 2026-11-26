@@ -10,7 +10,7 @@ Masz przed sobą 16 aplikacji sklepu, które źle działają w kontenerach. Każ
 - wolny port 8080
 - internet przy pierwszym uruchomieniu: obrazy `eclipse-temurin:21-jre-alpine`, `postgres:17-alpine`, `nginx:1.27-alpine`, `maven:3.9-eclipse-temurin-21`
 
-**Windows / Git Bash:** Git Bash zamienia argumenty zaczynające się od `/` na ścieżki Windows (`docker compose exec app ls /app` staje się `ls C:/Program Files/Git/app`). Skrypty z repo są na to odporne. Jeśli uruchamiasz coś ręcznie i widzisz w wyniku `C:/Program Files/Git/...`, poprzedź polecenie `MSYS_NO_PATHCONV=1` (np. `MSYS_NO_PATHCONV=1 docker compose exec app ls /app`) albo użyj podwójnego ukośnika (`//app`). Do interaktywnej powłoki w kontenerze w Git Bash czasem potrzebne jest `winpty docker compose exec app sh`.
+**Windows / Git Bash:** Git Bash zamienia argumenty zaczynające się od `/` na ścieżki Windows (`docker compose exec app ls /app` staje się `ls C:/Program Files/Git/app`). Skrypty z repo są na to odporne. Jeśli uruchamiasz coś ręcznie i widzisz w wyniku `C:/Program Files/Git/...`, poprzedź polecenie `MSYS_NO_PATHCONV=1` (np. `MSYS_NO_PATHCONV=1 docker compose exec app ls /app`) albo użyj podwójnego ukośnika (`//app`). Nie ustawiaj `MSYS_NO_PATHCONV=1` na stałe (np. w `~/.bashrc`): `mvn` w Git Bash przestaje wtedy działać (błąd `ClassNotFoundException: org.codehaus.plexus.classworlds.launcher.Launcher`). Do interaktywnej powłoki w kontenerze w Git Bash czasem potrzebne jest `winpty docker compose exec app sh`.
 
 Stos: Spring Boot 4.0, Java 21, obrazy `eclipse-temurin` (alpine), PostgreSQL 17.
 
