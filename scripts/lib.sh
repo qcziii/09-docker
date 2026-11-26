@@ -3,6 +3,7 @@
 # They need bash, curl, mvn and docker with Compose v2 (on Windows: Git Bash + Docker Desktop).
 
 # Git Bash on Windows: do not turn arguments starting with / into Windows paths
+# (needed for docker commands). mvn must run without it, see build_jar.
 export MSYS_NO_PATHCONV=1
 APP=${APP:-http://localhost:8080}
 LIB_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
@@ -46,7 +47,10 @@ stop_other_scenarios() {
 # Builds the application jar on the host (target/shop.jar), as described in ZADANIE.md.
 build_jar() {
   info "mvn package (budowanie target/shop.jar)"
-  if ! mvn -q -B package -DskipTests > "$OUT_FILE" 2>&1; then
+  # On Git Bash the mvn script passes /c/... paths (classpath, classworlds.conf) to java.exe
+  # and relies on MSYS path conversion. With MSYS_NO_PATHCONV=1 java gets unconverted paths
+  # and fails with a ClassNotFoundException for org.codehaus.plexus.classworlds.launcher.Launcher.
+  if ! env -u MSYS_NO_PATHCONV mvn -q -B package -DskipTests > "$OUT_FILE" 2>&1; then
     bad "mvn package nie powiódł się:"
     tail -n 20 "$OUT_FILE" | indent
     summary
